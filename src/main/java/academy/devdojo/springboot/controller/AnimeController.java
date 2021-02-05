@@ -23,6 +23,8 @@ import org.springframework.web.bind.annotation.RestController;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping("animes")
 @Log4j2
@@ -47,7 +49,7 @@ public class AnimeController {
     }
 
     @PostMapping
-    public ResponseEntity<Anime> save(@RequestBody AnimePostRequestBody anime){
+    public ResponseEntity<Anime> save(@RequestBody @Valid AnimePostRequestBody anime){
         
         return new ResponseEntity<>(animeService.save(anime), HttpStatus.CREATED);
     }
