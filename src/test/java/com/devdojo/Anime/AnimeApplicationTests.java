@@ -1,10 +1,10 @@
-package academy.devdojo.springboot;
+package com.devdojo.Anime;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class Springboot2EssentialsApplicationTests {
+class AnimeApplicationTests {
 
 	@Test
 	void contextLoads() {

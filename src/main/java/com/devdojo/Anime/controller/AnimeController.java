@@ -1,6 +1,6 @@
-package academy.devdojo.springboot.controller;
+package com.devdojo.Anime.controller;
 
-import academy.devdojo.springboot.domain.Anime;
+import com.devdojo.Anime.domain.Anime;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
