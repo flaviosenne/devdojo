@@ -1,6 +1,8 @@
 package com.devdojo.Anime.controller;
 
 import com.devdojo.Anime.domain.Anime;
+import com.devdojo.Anime.requests.AnimePostRequestBody;
+import com.devdojo.Anime.requests.AnimePutRequestBody;
 import com.devdojo.Anime.service.AnimeService;
 import com.devdojo.Anime.util.DateUtil;
 import lombok.RequiredArgsConstructor;
@@ -30,12 +32,12 @@ public class AnimeController {
     @CrossOrigin
     @GetMapping(path = "/{id}")
     public ResponseEntity<Anime> findById(@PathVariable Long id){
-        return ResponseEntity.ok(animeService.findById(id));
+        return ResponseEntity.ok(animeService.findByIdOrThrowBadRequest(id));
     }
 
     @CrossOrigin
     @PostMapping
-    public ResponseEntity<Anime> save(@RequestBody Anime anime){
+    public ResponseEntity<Anime> save(@RequestBody AnimePostRequestBody anime){
         return ResponseEntity.status(201).body(animeService.save(anime));
     }
 
@@ -48,7 +50,7 @@ public class AnimeController {
 
     @CrossOrigin
     @PutMapping(path = "/{id}")
-    public ResponseEntity<Void> update(@RequestBody Anime anime){
+    public ResponseEntity<Void> update(@RequestBody AnimePutRequestBody anime){
         animeService.replace(anime);
         return ResponseEntity.noContent().build();
     }

@@ -2,6 +2,8 @@ package com.devdojo.Anime.service;
 
 import com.devdojo.Anime.domain.Anime;
 import com.devdojo.Anime.repository.AnimeRepository;
+import com.devdojo.Anime.requests.AnimePostRequestBody;
+import com.devdojo.Anime.requests.AnimePutRequestBody;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -24,26 +26,38 @@ public class AnimeService {
 
     public List<Anime> listAll(){
         return animes;
+//        return animeRepository.findAll();
     }
 
-    public Anime findById(Long id){
+    public Anime findByIdOrThrowBadRequest(Long id){
+//        return animeRepository.findById(id)
+//        .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Anime not found"));
         return animes.stream()
                 .filter(anime -> anime.getId().equals(id))
                 .findFirst()
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Anime not found"));
     }
 
-    public Anime save(Anime anime) {
+    public Anime save(AnimePostRequestBody animeDTO) {
+        Anime anime = Anime.builder().name(animeDTO.getName()).build();
+
         anime.setId(ThreadLocalRandom.current().nextLong(3, 100000));
         animes.add(anime);
+//        return animeRepository.save(anime);
         return anime;
     }
 
     public void delete(Long id) {
-        animes.remove(findById(id));
+        animes.remove(findByIdOrThrowBadRequest(id));
     }
 
-    public void replace(Anime anime) {
+    public void replace(AnimePutRequestBody animeDTO) {
+        findByIdOrThrowBadRequest(animeDTO.getId());
+        Anime anime = Anime.builder()
+                .id(animeDTO.getId())
+                .name(animeDTO.getName())
+                .build();
+//        animeRepository.save(anime);
         delete(anime.getId());
         animes.add(anime);
     }
