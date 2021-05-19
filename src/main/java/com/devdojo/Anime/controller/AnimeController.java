@@ -5,8 +5,6 @@ import com.devdojo.Anime.service.AnimeService;
 import com.devdojo.Anime.util.DateUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import org.apache.coyote.Response;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,19 +20,29 @@ public class AnimeController {
     private final DateUtil dateUtil;
     private final AnimeService animeService;
 
+    @CrossOrigin
     @GetMapping
     public ResponseEntity<List<Anime>> list(){
         log.info(dateUtil.formatLocalDateTimeToDatabaseStyle(LocalDateTime.now()));
         return ResponseEntity.ok(animeService.listAll());
     }
 
+    @CrossOrigin
     @GetMapping(path = "/{id}")
     public ResponseEntity<Anime> findById(@PathVariable Long id){
         return ResponseEntity.ok(animeService.findById(id));
     }
 
+    @CrossOrigin
     @PostMapping
     public ResponseEntity<Anime> save(@RequestBody Anime anime){
         return ResponseEntity.status(201).body(animeService.save(anime));
+    }
+
+    @CrossOrigin
+    @DeleteMapping(path = "/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Long id){
+        animeService.delete(id);
+        return ResponseEntity.noContent().build();
     }
 }
