@@ -4,11 +4,10 @@ import lombok.*;
 
 @NoArgsConstructor
 @AllArgsConstructor
-@Getter
-@Setter
+@Data
 @Builder
-@ToString
 public class Anime {
+    private Long id;
     private String name;
 
 }
