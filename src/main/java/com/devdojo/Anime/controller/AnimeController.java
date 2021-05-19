@@ -45,4 +45,11 @@ public class AnimeController {
         animeService.delete(id);
         return ResponseEntity.noContent().build();
     }
+
+    @CrossOrigin
+    @PutMapping(path = "/{id}")
+    public ResponseEntity<Void> update(@RequestBody Anime anime){
+        animeService.replace(anime);
+        return ResponseEntity.noContent().build();
+    }
 }
