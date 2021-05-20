@@ -5,5 +5,5 @@ import com.devdojo.Anime.domain.Anime;
 import java.util.List;
 
 public interface AnimeRepository {
-    List<Anime> listAll();
+    List<Anime> findByName(String name);
 }

@@ -10,8 +10,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -27,6 +29,13 @@ public class AnimeService {
     public List<Anime> listAll(){
         return animes;
 //        return animeRepository.findAll();
+    }
+
+    public List<Anime> findByName(String name){
+        return animes.stream()
+                .filter(anime -> anime.getName().equals(name))
+                .collect(Collectors.toList());
+//        return animeRepository.findByName(name);
     }
 
     public Anime findByIdOrThrowBadRequest(Long id){

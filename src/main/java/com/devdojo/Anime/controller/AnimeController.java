@@ -30,10 +30,17 @@ public class AnimeController {
     }
 
     @CrossOrigin
+    @GetMapping(value = "/find")
+    public ResponseEntity<List<Anime>> findByName(@RequestParam String name){
+        return ResponseEntity.ok(animeService.findByName(name));
+    }
+
+    @CrossOrigin
     @GetMapping(path = "/{id}")
     public ResponseEntity<Anime> findById(@PathVariable Long id){
         return ResponseEntity.ok(animeService.findByIdOrThrowBadRequest(id));
     }
+
 
     @CrossOrigin
     @PostMapping
