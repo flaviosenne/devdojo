@@ -3,9 +3,7 @@ package com.devdojo.Anime.client;
 import com.devdojo.Anime.domain.Anime;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.Arrays;
@@ -37,10 +35,16 @@ public class SpringClient {
         Anime samurai = Anime.builder().name("samurai").build();
         ResponseEntity<Anime> samuraiSaved = new RestTemplate().exchange("http://localhost:81/animes",
                 HttpMethod.POST,
-                new HttpEntity<>(samurai),
+                new HttpEntity<>(samurai, createJsonHeaders()),
                 new ParameterizedTypeReference<Anime>() { }
         );
 
         log.info(samuraiSaved);
+    }
+
+    private static HttpHeaders createJsonHeaders(){
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.setContentType(MediaType.APPLICATION_JSON);
+        return httpHeaders;
     }
 }
