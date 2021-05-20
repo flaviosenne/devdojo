@@ -57,7 +57,7 @@ public class AnimeController {
     }
 
     @CrossOrigin
-    @PutMapping(path = "/{id}")
+    @PutMapping
     public ResponseEntity<Void> update(@RequestBody AnimePutRequestBody anime){
         animeService.replace(anime);
         return ResponseEntity.noContent().build();
