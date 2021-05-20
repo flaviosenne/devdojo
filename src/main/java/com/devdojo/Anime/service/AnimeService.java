@@ -1,6 +1,7 @@
 package com.devdojo.Anime.service;
 
 import com.devdojo.Anime.domain.Anime;
+import com.devdojo.Anime.exception.BadRequestException;
 import com.devdojo.Anime.repository.AnimeRepository;
 import com.devdojo.Anime.requests.AnimePostRequestBody;
 import com.devdojo.Anime.requests.AnimePutRequestBody;
@@ -44,7 +45,7 @@ public class AnimeService {
         return animes.stream()
                 .filter(anime -> anime.getId().equals(id))
                 .findFirst()
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Anime not found"));
+                .orElseThrow(() -> new BadRequestException("Anime not found"));
     }
 
     public Anime save(AnimePostRequestBody animeDTO) {
