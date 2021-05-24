@@ -33,19 +33,20 @@ public class AnimeService {
     }
 
     public List<Anime> findByName(String name){
-        return animes.stream()
-                .filter(anime -> anime.getName().equals(name))
-                .collect(Collectors.toList());
-//        return animeRepository.findByName(name);
+//        return animes.stream()
+//                .filter(anime -> anime.getName().equals(name))
+//                .collect(Collectors.toList());
+        return animeRepository.findByName(name);
     }
 
     public Anime findByIdOrThrowBadRequest(Long id){
-//        return animeRepository.findById(id)
-//        .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Anime not found"));
-        return animes.stream()
-                .filter(anime -> anime.getId().equals(id))
-                .findFirst()
+        return animeRepository.findById(id)
                 .orElseThrow(() -> new BadRequestException("Anime not found"));
+//        .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Anime not found"));
+//        return animes.stream()
+//                .filter(anime -> anime.getId().equals(id))
+//                .findFirst()
+//                .orElseThrow(() -> new BadRequestException("Anime not found"));
     }
 
     public Anime save(AnimePostRequestBody animeDTO) {
@@ -53,8 +54,8 @@ public class AnimeService {
 
         anime.setId(ThreadLocalRandom.current().nextLong(3, 100000));
         animes.add(anime);
-//        return animeRepository.save(anime);
-        return anime;
+        return animeRepository.save(anime);
+//        return anime;
     }
 
     public void delete(Long id) {
