@@ -25,11 +25,11 @@ public class AnimeService {
     static {
        animes = new ArrayList<>(List.of(new Anime(1L,"Naruto"), new Anime(2L,"CDZ")));
     }
-//    private final AnimeRepository animeRepository;
+    private final AnimeRepository animeRepository;
 
     public List<Anime> listAll(){
-        return animes;
-//        return animeRepository.findAll();
+//        return animes;
+        return animeRepository.findAll();
     }
 
     public List<Anime> findByName(String name){
