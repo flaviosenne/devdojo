@@ -60,7 +60,7 @@ public class AnimeController {
     }
 
     @CrossOrigin
-    @DeleteMapping(path = "/{id}")
+    @DeleteMapping(path = "/admin/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id){
         animeService.delete(id);
         return ResponseEntity.noContent().build();
