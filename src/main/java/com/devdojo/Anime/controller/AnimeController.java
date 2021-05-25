@@ -9,6 +9,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -28,6 +30,12 @@ public class AnimeController {
     @GetMapping
     public ResponseEntity<List<Anime>> list(){
         log.info(dateUtil.formatLocalDateTimeToDatabaseStyle(LocalDateTime.now()));
+        return ResponseEntity.ok(animeService.listAll());
+    }
+
+    @GetMapping("/all")
+    public ResponseEntity<List<Anime>> listAll(@AuthenticationPrincipal UserDetails userDetails){
+        log.info(userDetails);
         return ResponseEntity.ok(animeService.listAll());
     }
 
