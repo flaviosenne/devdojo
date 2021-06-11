@@ -5,6 +5,9 @@ import com.devdojo.Anime.requests.AnimePostRequestBody;
 import com.devdojo.Anime.requests.AnimePutRequestBody;
 import com.devdojo.Anime.service.AnimeService;
 import com.devdojo.Anime.util.DateUtil;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.ResponseEntity;
@@ -34,6 +37,7 @@ public class AnimeController {
     }
 
     @GetMapping("/all")
+    @Operation(summary = "List all animes", tags = {"anime"})
     public ResponseEntity<List<Anime>> listAll(@AuthenticationPrincipal UserDetails userDetails){
         log.info(userDetails);
         return ResponseEntity.ok(animeService.listAll());
@@ -62,6 +66,10 @@ public class AnimeController {
     @CrossOrigin
     @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping(path = "/admin/{id}")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "204", description = "Success when delete successful operation"),
+            @ApiResponse(responseCode = "400", description = "When Not found anime in DB"),
+    })
     public ResponseEntity<Void> delete(@PathVariable Long id){
         animeService.delete(id);
         return ResponseEntity.noContent().build();
