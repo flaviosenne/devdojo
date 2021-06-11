@@ -53,13 +53,14 @@ public class AnimeController {
 
 
     @CrossOrigin
-    @PostMapping
+    @PostMapping(path = "/admin")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Anime> save(@RequestBody @Valid AnimePostRequestBody anime){
         return ResponseEntity.status(201).body(animeService.save(anime));
     }
 
     @CrossOrigin
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping(path = "/admin/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id){
         animeService.delete(id);
